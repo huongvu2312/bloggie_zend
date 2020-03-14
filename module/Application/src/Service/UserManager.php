@@ -2,14 +2,7 @@
 
 namespace Application\Service;
 
-use Application\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Math\Rand;
-use Zend\Mail;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Part as MimePart;
 
 /**
  * This service is responsible for adding/editing users
@@ -24,25 +17,11 @@ class UserManager
     private $entityManager;
 
     /**
-     * PHP template renderer.
-     * @var type 
-     */
-    private $viewRenderer;
-
-    /**
-     * Application config.
-     * @var type 
-     */
-    private $config;
-
-    /**
      * Constructs the service.
      */
-    public function __construct($entityManager, $viewRenderer, $config)
+    public function __construct($entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->viewRenderer = $viewRenderer;
-        $this->config = $config;
     }
 
     /**

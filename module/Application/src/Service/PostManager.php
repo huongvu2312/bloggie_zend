@@ -2,12 +2,8 @@
 
 namespace Application\Service;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Entity\Post;
 use Application\Entity\Comment;
-use Application\Entity\Tag;
-use Zend\Filter\StaticFilter;
 
 /**
  * The PostManager service is responsible for adding new posts, updating existing

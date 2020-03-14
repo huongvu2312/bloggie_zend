@@ -4,10 +4,8 @@ namespace Application\Service\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Authentication\AuthenticationService;
 use Zend\Session\SessionManager;
 use Application\Service\AuthManager;
-use Application\Service\UserManager;
 
 /**
  * This is the factory class for AuthManager service. The purpose of the factory

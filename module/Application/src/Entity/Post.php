@@ -11,10 +11,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Post
 {
-    // Post status constants.
-    const STATUS_DRAFT       = 1; // Draft - true
-    const STATUS_PUBLISHED   = 0; // Published -false
-
     /**
      * @ORM\Id
      * @ORM\Column(name="id")

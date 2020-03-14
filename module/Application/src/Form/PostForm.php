@@ -4,8 +4,6 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
-use Application\Entity\Post;
-use Zend\Form\Element;
 
 /**
  * This form is used to collect post data.
@@ -86,9 +84,8 @@ class PostForm extends Form
      */
     private function addInputFilter()
     {
-
-        $inputFilter = new InputFilter();
-        $this->setInputFilter($inputFilter);
+        // Create main input filter
+        $inputFilter = $this->getInputFilter();
 
         $inputFilter->add([
             'name'     => 'title',

@@ -10,7 +10,6 @@ namespace Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
@@ -46,7 +45,7 @@ return [
                     ],
                     'defaults' => [
                         'controller'    => Controller\PostController::class,
-                        'action'        => 'index',
+                        'action'        => 'add',
                     ],
                 ],
             ],
@@ -79,7 +78,7 @@ return [
                     ],
                     'defaults' => [
                         'controller'    => Controller\UserController::class,
-                        'action'        => 'index',
+                        'action'        => 'admin',
                     ],
                 ],
             ],
@@ -93,7 +92,8 @@ return [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class
         ]
     ],
-    // We register module-provided controller plugins under this key.
+
+    // Register module-provided controller plugins
     'controller_plugins' => [
         'factories' => [
             Controller\Plugin\CurrentUserPlugin::class => Controller\Plugin\Factory\CurrentUserPluginFactory::class,
@@ -102,6 +102,7 @@ return [
             'currentUser' => Controller\Plugin\CurrentUserPlugin::class,
         ],
     ],
+
     // The 'access_filter' key is used by the User module to restrict or permit
     // access to certain controller actions for unauthorized visitors.
     'access_filter' => [
@@ -153,8 +154,8 @@ return [
     'view_helpers' => [
         'factories' => [
             View\Helper\Menu::class => View\Helper\Factory\MenuFactory::class,
-            View\Helper\CurrentUser::class => View\Helper\Factory\CurrentUserFactory::class,
             \Zend\Form\View\Helper\FormElementErrors::class => View\Helper\Factory\FormElementErrorsFactory::class,
+            View\Helper\CurrentUser::class => View\Helper\Factory\CurrentUserFactory::class,
         ],
         'aliases' => [
             'mainMenu' => View\Helper\Menu::class,

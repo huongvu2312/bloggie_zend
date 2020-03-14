@@ -3,13 +3,9 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilter;
-use User\Validator\UserExistsValidator;
 
 class UserForm extends Form
 {
-
     /**
      * Constructor.     
      */
@@ -24,7 +20,6 @@ class UserForm extends Form
         $this->addElements();
         $this->addInputFilter();
     }
-
 
     /**
      * This method adds elements to form (input fields and submit button).
@@ -122,7 +117,7 @@ class UserForm extends Form
             ],
         ]);
 
-        // Add input for "old_password" field
+        // Add input filter for "old_password" field
         $inputFilter->add([
             'name'     => 'old_password',
             'required' => true,
@@ -138,8 +133,9 @@ class UserForm extends Form
             ],
         ]);
 
+        // If there is a value in "new_password" or "confirm_new_password" input, 
+        // add input filter for "new_password" input and "confirm_new_password" input
         if ($this->changePass == true) {
-            // Add input for "new_password" field
             $inputFilter->add([
                 'name'     => 'new_password',
                 'filters'  => [],
@@ -154,7 +150,6 @@ class UserForm extends Form
                 ],
             ]);
 
-            // Add input for "confirm_new_password" field
             $inputFilter->add([
                 'name'     => 'confirm_new_password',
                 'filters'  => [],

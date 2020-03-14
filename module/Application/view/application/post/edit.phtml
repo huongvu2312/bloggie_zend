@@ -1,5 +1,6 @@
 <?php
 $this->headTitle('Edit ' . $post->getTitle());
+$this->mainMenu()->setActiveItemId('admin');
 
 $form = $this->form;
 $form->get('title')->setAttributes([

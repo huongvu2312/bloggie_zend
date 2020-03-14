@@ -37,7 +37,7 @@ class PostController extends AbstractActionController
 
     /**
      * This action displays the "New Post" page. The page contains a form allowing
-     * to enter post title, content and tags. When the user clicks the Submit button,
+     * to enter post title, description and published status. When the user clicks the Submit button,
      * a new Post entity will be created.
      */
     public function addAction()
@@ -61,7 +61,7 @@ class PostController extends AbstractActionController
                 // Use post manager service to add new post to database.                
                 $this->postManager->addNewPost($data);
 
-                // Redirect the user to "index" page.
+                // Redirect the user to admin post management page.
                 return $this->redirect()->toRoute('posts', ['action' => 'admin']);
             }
         }
@@ -73,9 +73,9 @@ class PostController extends AbstractActionController
     }
 
     /**
-     * This action displays the "View Post" page allowing to see the post title
-     * and content. The page also contains a form allowing
-     * to add a comment to post. 
+     * This action displays the "View Post" page allowing to see the post title and description. 
+     * If the post is a draft, the "DRAFT" word will be included in the title.
+     * The page also contains a form allowing to add a comment to post. 
      */
     public function viewAction()
     {
@@ -211,8 +211,11 @@ class PostController extends AbstractActionController
 
         $this->postManager->removePost($post);
 
+        // Redirect the user to the current admin post management page, 
+        // with $_GET['filterStatus] value accordingly.
+        // Honestly, $_GET['filterStatus] will always be set, but one
+        // could never be too much careful with programming
         if (isset($_GET['filterStatus']))
-            // Redirect the user to "admin" page.
             return $this->redirect()->toRoute(
                 'posts',
                 ['action' => 'admin'],
@@ -225,16 +228,19 @@ class PostController extends AbstractActionController
 
     /**
      * This "admin" action displays the Manage Posts page. This page contains
-     * the list of posts with an ability to edit/delete any post.
+     * the list of posts with an ability to edit/delete any post. The posts could
+     * be filtered through published status (Draft/Published/All).
      */
     public function adminAction()
     {
+        // Set the default filter status
         if (!isset($_GET['filterStatus'])) {
             $filterStatus = -1;
         } else {
             $filterStatus = $_GET['filterStatus'];
         }
 
+        // Filter based on the options of status select menu
         if ($filterStatus == -1) {
             $posts = $this->entityManager->getRepository(Post::class)
                 ->findBy([], ['dateCreated' => 'DESC']);

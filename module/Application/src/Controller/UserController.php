@@ -4,14 +4,8 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Application\Entity\Post;
 use Application\Entity\User;
 use Application\Form\UserForm;
-use Application\Form\PasswordChangeForm;
-use Application\Form\PasswordResetForm;
 
 /**
  * This controller is responsible for user management (adding, editing, 
@@ -40,16 +34,29 @@ class UserController extends AbstractActionController
         $this->userManager = $userManager;
     }
 
+    /**
+     * This "admin" action displays the Manage User page.
+     * The admin can changed email and password used for login,
+     * as long as they put the old password correctly.
+     * The password had been encrypted.
+     */
     public function adminAction()
     {
-        $user = $this->entityManager->getRepository(User::class)
-            ->find(1);
+        // Use the CurrentUser controller plugin to get the current user.
+        $user = $this->currentUser();
         $flashMessage = '';
 
         // Create user form
-        if ($this->getRequest()->isPost() && !empty($this->params()->fromPost()['new_password'])) {
-            $form = new UserForm(true);
+        if ($this->getRequest()->isPost()) {
+            if (
+                !empty($this->params()->fromPost()['new_password'])
+                || !empty($this->params()->fromPost()['confirm_new_password'])
+            ) {
+                // Set $changePass = true when "new_password" or "confirm_new_password" input is not empty
+                $form = new UserForm(true);
+            }
         } else {
+            // else set it = false
             $form = new UserForm(false);
         }
 
@@ -57,7 +64,6 @@ class UserController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             // Fill in the form with POST data
             $data = $this->params()->fromPost();
-
             $form->setData($data);
 
             // Validate form

@@ -2,7 +2,6 @@
 
 namespace Application\Service;
 
-use Zend\Authentication\Result;
 use Application\Entity\Post;
 
 /**
@@ -91,7 +90,7 @@ class AuthManager
         // access to it is permitted to anyone (even for not logged in users.
         // Restrictive mode is more secure and recommended to use.
 
-        // Get draft id list
+        // Get id from posts which haven't been published
         $draftIdList = [];
         $drafts = $this->entityManager->getRepository(Post::class)
             ->findBy(['draft' => 1], ['id' => 'DESC']);
@@ -109,8 +108,8 @@ class AuthManager
                 $actionList = $item['actions'];
                 $allow = $item['allow'];
 
+                // Set restricted mode if page contained draft post
                 if (is_array($draftIdList) && in_array($idName, $draftIdList)) {
-                    // Set restricted mode if page is draft
                     $allow = '@';
                 }
 
@@ -129,7 +128,7 @@ class AuthManager
             }
         }
 
-        // In restrictive mode, we forbid access for unauthorized users to any 
+        // In restrictive mode, access is forbid for unauthorized users to any 
         // action not listed under 'access_filter' key (for security reasons).
         if ($mode == 'restrictive' && !$this->authService->hasIdentity())
             return false;

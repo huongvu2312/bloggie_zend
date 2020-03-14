@@ -56,12 +56,12 @@ class CurrentUser extends AbstractHelper
                 'email' => $this->authService->getIdentity()
             ));
             if ($this->user == null) {
-                // Oops.. the identity presents in session, but there is no such user in database.
-                // We throw an exception, because this is a possible security problem. 
+                // The identity presents in session, but there is no such user in database.
+                // Throw exception to prevent security issues.
                 throw new \Exception('Not found user with such ID');
             }
 
-            // Return the User entity we found.
+            // Return the logged-in User.
             return $this->user;
         }
 

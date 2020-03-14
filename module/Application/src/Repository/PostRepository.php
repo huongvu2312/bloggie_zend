@@ -22,6 +22,7 @@ class PostRepository extends EntityRepository
 
         $queryBuilder->select('p')
             ->from(Post::class, 'p')
+            ->where('p.draft = 0')
             ->orderBy('p.dateCreated', 'DESC');
 
         return $queryBuilder->getQuery();

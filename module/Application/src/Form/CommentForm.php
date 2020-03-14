@@ -3,7 +3,6 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
 
 /**
  * This form is used to collect comment data.
@@ -70,9 +69,8 @@ class CommentForm extends Form
      */
     private function addInputFilter()
     {
-
-        $inputFilter = new InputFilter();
-        $this->setInputFilter($inputFilter);
+        // Create main input filter
+        $inputFilter = $this->getInputFilter();
 
         $inputFilter->add([
             'name'     => 'user',

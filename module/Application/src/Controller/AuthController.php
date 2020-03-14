@@ -15,31 +15,17 @@ use Application\Entity\User;
 class AuthController extends AbstractActionController
 {
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
-
-    /**
      * Auth manager.
      * @var User\Service\AuthManager
      */
     private $authManager;
 
     /**
-     * User manager.
-     * @var User\Service\UserManager
-     */
-    private $userManager;
-
-    /**
      * Constructor.
      */
-    public function __construct($entityManager, $authManager, $userManager)
+    public function __construct($authManager)
     {
-        $this->entityManager = $entityManager;
         $this->authManager = $authManager;
-        $this->userManager = $userManager;
     }
 
     /**
