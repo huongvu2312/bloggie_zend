@@ -6,9 +6,9 @@ A blog application built with [Zend Framework 3](https://github.com/zendframewor
 
 ### Prerequisites
 
-* [PHP^7.0](https://www.php.net/downloads)
-* [MySQL](https://www.mysql.com/downloads/)
-* [Composer](https://getcomposer.org/)
+- [PHP^7.0](https://www.php.net/downloads)
+- [MySQL](https://www.mysql.com/downloads/)
+- [Composer](https://getcomposer.org/)
 
 #### Note
 
@@ -33,9 +33,11 @@ Run `bloggie_zend.sql`, which is located in `data` directory.
 
 If you are using XAMPP, open [phpMyAdmin](http://localhost/phpmyadmin/index.php), import the sql file and start MySQL module in XAMPP Control Panel.
 
+If, for some reason, you use a MySQL database with different port or database name, please change them accordingly in `config\autoload\local.php`.
+
 #### Web server
 
-* Option 1: PHP web server
+- Option 1: PHP web server
 
 ```bash
 $ php -S 0.0.0.0:8080 -t public
@@ -45,7 +47,7 @@ $ composer run --timeout 0 serve
 
 The application could be opened on port 8080 (http://localhost:8080).
 
-* Option 2: Apache web server (XAMPP)
+- Option 2: Apache web server (XAMPP)
 
 Open XAMPP Control Panel.
 
@@ -61,26 +63,26 @@ The application could be opened on localhost (http://localhost/).
 
 Currently, there are 2 admin accounts which could be used for testing purpose.
 
-* vu@gmail.com
-* test@gmail.com
+- vu@gmail.com
+- test@gmail.com
 
 Both accounts had the same password: **testing**.
 
 ## Build with
 
-* PHP 7
-* Zend Framework 3
-* Doctrine 2
+- PHP 7
+- Zend Framework 3
+- Doctrine 2
 
 ## Feature
 
-* User: read blog posts and leave comments
-* Admin:
+- User: read blog posts and leave comments
+- Admin:
 
   Authentication
-  
+
   Change admin account data
-  
+
   CRUD function for post. Post could be published or saved as draft (which normal user won't be able to read).
 
 ## Live demo
