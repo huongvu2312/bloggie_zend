@@ -1,0 +1,52 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <?= $this->headTitle('Bloggie')->setSeparator(' | ')->setAutoEscape(false) ?>
+
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/icon.ico'])
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/jquery.dataTables.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+
+    ?>
+
+    <!-- Scripts -->
+    <?= $this->inlineScript()
+        ->prependFile($this->basePath('js/bloggie.js'))
+        ->prependFile($this->basePath('js/jquery.dataTables.min.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jquery-3.4.1.min.js'))
+    ?>
+</head>
+
+<body>
+    <div class="container">
+        <?php
+        // Check if the activeMenuItemId passed to layout view model
+        // and if so, use it for setting active navbar item.
+        if (isset($activeMenuItemId)) {
+            $this->mainMenu()->setActiveItemId($activeMenuItemId);
+        }
+
+        // Render the navbar
+        echo $this->mainMenu()->render();
+        ?>
+
+        <?= $this->content; ?>
+        <hr>
+        <footer>
+            <p>&copy; 2020 by Vu Thu Huong. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<?php
+$this->headTitle('Admin Area - Post');
+$this->mainMenu()->setActiveItemId('admin');
+?>
+
+<div class="p-3">
+
+    <h2>Admin Management Area - Post</h2>
+
+    <p>
+        <a class="btn btn-default" href="<?= $this->url('posts', ['action' => 'add']); ?>">
+            >> Add new post
+        </a>
+    </p>
+    <form action="<?php echo $this->url('posts', ['action' => 'admin']); ?>" method="get" onChange="submit()">
+        <select name="filterStatus">
+            <option value="-1" <?php if ($filterStatus == -1) {
+                                    echo ' selected="true"';
+                                } ?>>All posts</option>
+            <option value="0" <?php if ($filterStatus == 0) {
+                                    echo ' selected="true"';
+                                } ?>>Published posts</option>
+            <option value="1" <?php if ($filterStatus == 1) {
+                                    echo ' selected="true"';
+                                } ?>>Draft</option>
+        </select>
+    </form>
+    <br>
+
+    <table class="table table-striped" id="datatable">
+        <thead>
+            <tr>
+                <th>Nr</th>
+                <th>Post</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $i = 1;
+            foreach ($posts as $post) :
+            ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <a href="<?= $this->url('posts', ['action' => 'view', 'id' => $post->getId()]); ?>">
+                            <?= $this->escapeHtml($post->getTitle()); ?>
+                        </a>
+                    </td>
+                    <td>
+                        <?= $this->escapeHtml(date('F j, Y h:i:s', strtotime($post->getDateCreated()))); ?>
+                    <td>
+                        <a class="btn btn-success" href="<?= $this->url(
+                                                                'posts',
+                                                                ['action' => 'edit', 'id' => $post->getId()]
+                                                            ); ?>">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </a>
+                        <a class="btn btn-danger" href="<?= $this->url(
+                                                            'posts',
+                                                            ['action' => 'delete', 'id' => $post->getId()],
+                                                            [
+                                                                'query' => ['filterStatus' => $filterStatus],
+                                                            ]
+                                                        ); ?>">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </a>
+                    </td>
+                </tr>
+
+            <?php
+                $i++;
+            endforeach; ?>
+        </tbody>
+    </table>
+</div>
